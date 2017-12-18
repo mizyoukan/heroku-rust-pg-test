@@ -28,8 +28,8 @@ quick_main!(|| -> Result<()> {
     let negotiator = NativeTls::new()?;
     let _conn = Connection::connect(url, TlsMode::Require(&negotiator))?;
 
-    let port = env::var("PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(8000);
-    let addr = ([127, 0, 0, 1], port).into();
+    let port = env::var("PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(80);
+    let addr = ([0, 0, 0, 0], port).into();
 
     let service = const_service(service_fn(|_| {
         Ok(Response::<hyper::Body>::new()
